@@ -13,10 +13,9 @@ jobs:
         with:
           command: android debug
           buildozer_version: master
-        working-directory: Mi_lista_app
 
       - name: Subir APK
         uses: actions/upload-artifact@v4
         with:
           name: apk-resultado
-          path: Mi_lista_app/bin/*.apk
+          path: bin/*.apk
