@@ -1,15 +1,12 @@
-name: Compilar APK con Buildozer
+name: Compilar APK
 
-on:
-  push:
-    branches: [ main, master ]
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout del código
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Compilar con Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
@@ -18,8 +15,8 @@ jobs:
           buildozer_version: master
         working-directory: Mi_lista_app
 
-      - name: Subir APK generado
+      - name: Subir APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-android
+          name: apk-resultado
           path: Mi_lista_app/bin/*.apk
