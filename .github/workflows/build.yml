@@ -8,6 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
       - name: Compilar con Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         with:
