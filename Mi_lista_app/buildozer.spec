@@ -4,44 +4,39 @@
 title = Mi Lista de Compras
 
 # (str) Package name
-package.name = milistacompras
+package.name = listadecompras
 
 # (str) Package domain (needed for android packaging)
-package.domain = org.milista
+package.domain = org.compras
 
-# (str) Source files where the main file lives
-source.dir = .
-
-# (list) Source files to include (let it include python files and assets)
-source.include_exts = py,png,jpg,kv,atlas,db
-
-# (str) Application versioning
-version = 0.1
+# (list) Source files to include (let it default to your project files)
+source.include_exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
-requirements = python3,kivy==2.2.1,kivymd==1.1.1,requests,pillow,openssl,urllib3,idna,certifi,charset-normalizer,sqlite3
-
-# (list) Permissions
-android.permissions = INTERNET
+# Omitimos versiones experimentales y fijamos Kivy/KivyMD estables con Python 3.10
+requirements = python3,kivy==2.2.1,kivymd==1.1.1,requests,urllib3,idna,certifi,charset-normalizer
 
 # (str) Supported orientations
 orientation = portrait
 
-# (int) Target Android API, should be as high as possible
+# (list) The orientation can be 'landscape', 'sensor' or 'portrait'
+#fullscreen = 0
+
+# (list) Permissions
+android.permissions = INTERNET
+
+# (int) Target Android API, should be as high as possible.
 android.api = 33
 
 # (int) Minimum API your APK will support
 android.min_api = 21
 
-# (bool) Indicate if you want to accept Android SDK licenses
-android.accept_sdk_license = True
-
 # (str) Android NDK version to use
 android.ndk = 25b
 
-# (list) Supported architectures
-android.archs = arm64-v8a
+# (str) Android SDK version to use (Optional, leave blank to auto-download)
+# android.sdk = 30
 
-[buildozer]
-log_level = 2
-warn_on_root = 1
+# (str) python-for-android branch
+# Forzamos una rama estable compatible con Python 3.10
+p4a.branch = master
