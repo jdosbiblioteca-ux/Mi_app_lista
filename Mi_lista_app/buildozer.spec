@@ -36,6 +36,9 @@ android.min_api = 21
 # (bool) Indicate if you want to accept Android SDK licenses
 android.accept_sdk_license = True
 
+# (str) Android NDK version to use
+android.ndk = 25b
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
