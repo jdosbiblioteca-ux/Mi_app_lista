@@ -1,44 +1,54 @@
-name: Compilar APK
+name: CI/CD Build APK
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
+    runs-on: ubuntu-latest
 
-      - name: Instalar dependencias del sistema
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar entorno de Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Instalar dependencias del sistema
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
             python3-pip \
-            python3-setuptools \
-            python3-virtualenv \
+            build-essential \
             git \
-            zip \
-            unzip \
-            autoconf \
-            libtool \
-            pkg-config \
+            python3-dev \
+            ffmpeg \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            libportmidi-dev \
+            libswscale-dev \
+            libavformat-dev \
+            libavcodec-dev \
             zlib1g-dev \
-            libncurses5-dev \
-            libncursesw5-dev \
-            libtinfo5 \
             libffi-dev \
             libssl-dev
 
-      - name: Instalar Buildozer y Cython
-        run: |
-          pip3 install --upgrade pip
-          pip3 install --user Cython==0.29.36 buildozer
+    - name: Instalar Buildozer y herramientas de Android
+      run: |
+        python -m pip install --upgrade pip
+        pip install --user --upgrade Cython==0.29.36 buildozer==1.5.0
 
-      - name: Compilar APK con Buildozer
-        working-directory: Mi_lista_app
-        run: ~/.local/bin/buildozer -v android debug
+    - name: Construir APK con Buildozer
+      run: |
+        buildozer -v android debug
 
-      - name: Subir APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: apk-resultado
-          path: Mi_lista_app/bin/*.apk
+    - name: Subir artefacto (APK)
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-debug
+        path: bin/*.apk
