@@ -39,6 +39,9 @@ android.accept_sdk_license = True
 # (str) Android NDK version to use
 android.ndk = 25b
 
+# (list) Supported architectures
+android.archs = arm64-v8a
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
