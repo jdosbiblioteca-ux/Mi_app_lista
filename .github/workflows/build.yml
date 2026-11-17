@@ -8,18 +8,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configurar Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
       - name: Compilar con Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         with:
-          command: android debug
+          command: android debug --dir Mi_lista_app
           buildozer_version: master
-        working-directory: Mi_lista_app
 
       - name: Subir APK
         uses: actions/upload-artifact@v4
