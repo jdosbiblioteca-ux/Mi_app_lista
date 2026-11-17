@@ -27,6 +27,15 @@ android.permissions = INTERNET
 # (str) Supported orientations
 orientation = portrait
 
+# (int) Target Android API, should be as high as possible
+android.api = 33
+
+# (int) Minimum API your APK will support
+android.min_api = 21
+
+# (bool) Indicate if you want to accept Android SDK licenses
+android.accept_sdk_license = True
+
 [buildozer]
 log_level = 2
 warn_on_root = 1
