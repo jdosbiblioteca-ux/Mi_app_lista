@@ -4,15 +4,38 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
-      - name: Compilar con Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        with:
-          command: android debug --dir Mi_lista_app
-          buildozer_version: master
+      - name: Instalar dependencias del sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3-pip \
+            python3-setuptools \
+            python3-virtualenv \
+            git \
+            zip \
+            unzip \
+            autoconf \
+            libtool \
+            pkg-config \
+            zlib1g-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            libtinfo5 \
+            libffi-dev \
+            libssl-dev
+
+      - name: Instalar Buildozer y Cython
+        run: |
+          pip3 install --upgrade pip
+          pip3 install --user Cython==0.29.36 buildozer
+
+      - name: Compilar APK con Buildozer
+        working-directory: Mi_lista_app
+        run: ~/.local/bin/buildozer -v android debug
 
       - name: Subir APK
         uses: actions/upload-artifact@v4
